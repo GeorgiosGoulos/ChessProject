@@ -9,12 +9,13 @@ public class Pawn {
     private int yCoordinate;
     private PieceColor pieceColor;
     public static final int MAX_NUMBER_OF_PIECES = ChessBoard.MAX_BOARD_WIDTH;
+    private MovementStrategy movementStrategy = new PawnMovementStrategy();
 
     public Pawn(PieceColor pieceColor) {
         this.pieceColor = pieceColor;
     }
 
-    public ChessBoard getChesssBoard() {
+    public ChessBoard getChessBoard() {
         return chessBoard;
     }
 
@@ -46,8 +47,8 @@ public class Pawn {
         pieceColor = value;
     }
 
-    public void Move(MovementType movementType, int newX, int newY) {
-        throw new UnsupportedOperationException("Need to implement Pawn.Move()") ;
+    public void move(MovementType movementType, int newX, int newY) {
+       movementStrategy.moveToPosition(this, newX, newY);
     }
 
     @Override

@@ -9,9 +9,15 @@ public class ChessBoard {
     public static final int HEIGHT_INVALID_INDEX = -1;
 
     private Pawn[][] pieces;
+    
+    private boolean blackStartsAtNorth = true;
 
     public ChessBoard() {
         pieces = new Pawn[MAX_BOARD_WIDTH + 1][MAX_BOARD_HEIGHT + 1];
+    }
+    
+    public boolean blackStartsAtNorth() {
+        return blackStartsAtNorth;
     }
 
     public void add(Pawn pawn, int xCoordinate, int yCoordinate, PieceColor pieceColor) {
@@ -25,13 +31,21 @@ public class ChessBoard {
         pawn.setXCoordinate(xCoordinate);
         pawn.setYCoordinate(yCoordinate);
     }
+    
+    public void remove(Pawn pawn) {
+        int xCoordinate = pawn.getXCoordinate();
+        int yCoordinate = pawn.getYCoordinate();
+        pieces[xCoordinate][yCoordinate] = null;
+        pawn.setXCoordinate(-1);
+        pawn.setYCoordinate(-1);
+    }
 
     private void placePawnToInvalidPosition(Pawn pawn) {
         pawn.setXCoordinate(WIDTH_INVALID_INDEX);
         pawn.setYCoordinate(HEIGHT_INVALID_INDEX);
     }
 
-    private boolean positionIsAvailable(int xCoordinate, int yCoordinate) {
+    public boolean positionIsAvailable(int xCoordinate, int yCoordinate) {
         return pieces[xCoordinate][yCoordinate] == null;
     }
 

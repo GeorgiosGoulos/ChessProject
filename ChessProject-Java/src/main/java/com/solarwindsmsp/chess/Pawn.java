@@ -6,6 +6,7 @@ public class Pawn {
     private int xCoordinate;
     private int yCoordinate;
     private PieceColor pieceColor;
+    public static final int MAX_NUMBER_OF_PIECES = ChessBoard.MAX_BOARD_WIDTH;
 
     public Pawn(PieceColor pieceColor) {
         this.pieceColor = pieceColor;

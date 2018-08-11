@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import com.solarwindsmsp.chess.model.Pawn;
+import com.solarwindsmsp.chess.model.PieceColor;
 
 public class ChessBoardTest {
 

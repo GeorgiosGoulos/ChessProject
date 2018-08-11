@@ -1,4 +1,6 @@
-package com.solarwindsmsp.chess;
+package com.solarwindsmsp.chess.model;
+
+import com.solarwindsmsp.chess.ChessBoard;
 
 public class PawnMovementStrategy implements MovementStrategy {
     

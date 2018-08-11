@@ -1,10 +1,11 @@
 package com.solarwindsmsp.chess;
 
-import junit.framework.Assert;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import com.solarwindsmsp.chess.model.MovementType;
+import com.solarwindsmsp.chess.model.Pawn;
+import com.solarwindsmsp.chess.model.PieceColor;
 
 public class PawnTest {
 

@@ -1,5 +1,8 @@
 package com.solarwindsmsp.chess;
 
+import com.solarwindsmsp.chess.model.Pawn;
+import com.solarwindsmsp.chess.model.PieceColor;
+
 public class ChessBoard {
 
     public static final int MAX_BOARD_WIDTH = 7;
@@ -23,7 +26,7 @@ public class ChessBoard {
     public void add(Pawn pawn, int xCoordinate, int yCoordinate, PieceColor pieceColor) {
         if (!(isLegalBoardPosition(xCoordinate, yCoordinate) 
             && positionIsAvailable(xCoordinate, yCoordinate) 
-            && canAddMorePawns(pieceColor))) {
+            && canAddMorePawns(pawn))) {
           placePawnToInvalidPosition(pawn);
           return;
         }
@@ -61,9 +64,9 @@ public class ChessBoard {
         return yCoordinate >= 0 && yCoordinate <= MAX_BOARD_HEIGHT;
     }
     
-    private boolean canAddMorePawns(PieceColor color) {
-      int number = getNumberOfExistingPawns(color);
-      return number < Pawn.MAX_NUMBER_OF_PIECES;
+    private boolean canAddMorePawns(Pawn pawn) {
+      int number = getNumberOfExistingPawns(pawn.getPieceColor());
+      return number < pawn.getMaxNumberOfPiecesAllowed();
     }
 
     private int getNumberOfExistingPawns(PieceColor color) {

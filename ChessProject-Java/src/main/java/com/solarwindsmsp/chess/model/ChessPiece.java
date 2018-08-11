@@ -5,8 +5,6 @@ import com.solarwindsmsp.chess.ChessBoard;
 public abstract class ChessPiece {
 
     protected ChessBoard chessBoard;
-    protected int xCoordinate;
-    protected int yCoordinate;
     protected Point point;
     protected PieceColor pieceColor;
     protected MovementStrategy movementStrategy;
@@ -25,21 +23,19 @@ public abstract class ChessPiece {
     }
 
     public int getXCoordinate() {
-        return xCoordinate;
+        return point.getX();
     }
 
-
-
     public void setXCoordinate(int xCoordinate) {
-        this.xCoordinate = xCoordinate;
+        this.point.setX(xCoordinate);
     }
 
     public int getYCoordinate() {
-        return yCoordinate;
+        return this.getPoint().getY();
     }
 
     public void setYCoordinate(int yCoordinate) {
-        this.yCoordinate = yCoordinate;
+        this.point.setY(yCoordinate);
     }
 
     public Point getPoint() {
@@ -59,8 +55,8 @@ public abstract class ChessPiece {
     }
 
     /**
-     * Returns the maximum number of permitted pieces such as this one on the chess board, taking
-     * into account the piece type and color
+     * Returns the maximum number of permitted pieces for this instance's type and
+     * {@link com.solarwindsmsp.chess.model.PieceColor PieceColor} on the chess board
      * 
      * @return the maximum number of permitted pieces
      */

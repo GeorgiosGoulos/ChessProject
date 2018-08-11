@@ -9,7 +9,7 @@ public class PawnMovementStrategy implements MovementStrategy {
             return;
         }
         pawn.getChessBoard().remove(pawn);
-        pawn.getChessBoard().add(pawn, xNewCoordinate, yNewCoordinate, pawn.getPieceColor());
+        pawn.getChessBoard().add(pawn, xNewCoordinate, yNewCoordinate);
     }
 
     private boolean canMoveToPosition(Pawn pawn, int xNewCoordinate,

@@ -23,7 +23,7 @@ public class ChessBoard {
         return blackStartsAtNorth;
     }
 
-    public void add(Pawn pawn, int xCoordinate, int yCoordinate, PieceColor pieceColor) {
+    public void add(Pawn pawn, int xCoordinate, int yCoordinate) {
         if (!(isLegalBoardPosition(xCoordinate, yCoordinate) 
             && positionIsAvailable(xCoordinate, yCoordinate) 
             && canAddMorePawns(pawn))) {

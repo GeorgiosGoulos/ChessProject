@@ -25,7 +25,8 @@ public class Pawn extends ChessPiece {
 
     protected String currentPositionAsString() {
         String eol = System.lineSeparator();
-        return MessageFormat.format("Current X: {1}{0}Current Y: {2}{0}Piece Color: {3}", eol, xCoordinate, yCoordinate, pieceColor);
+        return MessageFormat.format("Current X: {1}{0}Current Y: {2}{0}Piece Color: {3}",
+                eol, this.point.getX(), this.point.getY(), pieceColor);
     }
 
     @Override

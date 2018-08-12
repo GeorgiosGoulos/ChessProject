@@ -1,6 +1,6 @@
 package com.solarwindsmsp.chess;
 
-import com.solarwindsmsp.chess.model.Pawn;
+import com.solarwindsmsp.chess.model.ChessPiece;
 import com.solarwindsmsp.chess.model.PieceColor;
 
 public class ChessBoard {
@@ -11,41 +11,41 @@ public class ChessBoard {
     public static final int WIDTH_INVALID_INDEX = -1;
     public static final int HEIGHT_INVALID_INDEX = -1;
 
-    private Pawn[][] pieces;
+    private ChessPiece[][] pieces;
     
     private boolean blackStartsAtNorth = true;
 
     public ChessBoard() {
-        pieces = new Pawn[MAX_BOARD_WIDTH + 1][MAX_BOARD_HEIGHT + 1];
+        pieces = new ChessPiece[MAX_BOARD_WIDTH + 1][MAX_BOARD_HEIGHT + 1];
     }
     
     public boolean blackStartsAtNorth() {
         return blackStartsAtNorth;
     }
 
-    public void add(Pawn pawn, int xCoordinate, int yCoordinate) {
+    public void add(ChessPiece piece, int xCoordinate, int yCoordinate) {
         if (!(isLegalBoardPosition(xCoordinate, yCoordinate) 
             && positionIsAvailable(xCoordinate, yCoordinate) 
-            && canAddMorePawns(pawn))) {
-          placePawnToInvalidPosition(pawn);
+            && canAddMorePieces(piece))) {
+          placePieceToInvalidPosition(piece);
           return;
         }
-        pieces[xCoordinate][yCoordinate] = pawn;
-        pawn.setXCoordinate(xCoordinate);
-        pawn.setYCoordinate(yCoordinate);
+        pieces[xCoordinate][yCoordinate] = piece;
+        piece.setXCoordinate(xCoordinate);
+        piece.setYCoordinate(yCoordinate);
     }
     
-    public void remove(Pawn pawn) {
-        int xCoordinate = pawn.getXCoordinate();
-        int yCoordinate = pawn.getYCoordinate();
+    public void remove(ChessPiece piece) {
+        int xCoordinate = piece.getXCoordinate();
+        int yCoordinate = piece.getYCoordinate();
         pieces[xCoordinate][yCoordinate] = null;
-        pawn.setXCoordinate(-1);
-        pawn.setYCoordinate(-1);
+        piece.setXCoordinate(-1);
+        piece.setYCoordinate(-1);
     }
 
-    private void placePawnToInvalidPosition(Pawn pawn) {
-        pawn.setXCoordinate(WIDTH_INVALID_INDEX);
-        pawn.setYCoordinate(HEIGHT_INVALID_INDEX);
+    private void placePieceToInvalidPosition(ChessPiece piece) {
+        piece.setXCoordinate(WIDTH_INVALID_INDEX);
+        piece.setYCoordinate(HEIGHT_INVALID_INDEX);
     }
 
     public boolean positionIsAvailable(int xCoordinate, int yCoordinate) {
@@ -64,20 +64,20 @@ public class ChessBoard {
         return yCoordinate >= 0 && yCoordinate <= MAX_BOARD_HEIGHT;
     }
     
-    private boolean canAddMorePawns(Pawn pawn) {
-      int number = getNumberOfExistingPawns(pawn.getPieceColor());
-      return number < pawn.getMaxNumberOfPiecesAllowed();
+    private boolean canAddMorePieces(ChessPiece piece) {
+      int number = getNumberOfExistingPieces(piece.getPieceColor());
+      return number < piece.getMaxNumberOfPiecesAllowed();
     }
 
-    private int getNumberOfExistingPawns(PieceColor color) {
-      int numberOfPawns = 0;
+    private int getNumberOfExistingPieces(PieceColor color) {
+      int numberOfPiecess = 0;
       for (int i = 0; i <= MAX_BOARD_HEIGHT; i++) {
         for (int j = 0; j <= MAX_BOARD_WIDTH; j++) {
           if (pieces[i][j] != null && color == pieces[i][j].getPieceColor()) {
-            numberOfPawns++;
+            numberOfPiecess++;
           }
         }
       }
-      return numberOfPawns;
+      return numberOfPiecess;
     }
 }

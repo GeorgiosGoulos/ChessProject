@@ -3,9 +3,9 @@ package com.solarwindsmsp.chess;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
-import com.solarwindsmsp.chess.model.MovementType;
-import com.solarwindsmsp.chess.model.Pawn;
-import com.solarwindsmsp.chess.model.PieceColor;
+import com.solarwindsmsp.chess.chesspiece.MovementType;
+import com.solarwindsmsp.chess.chesspiece.Pawn;
+import com.solarwindsmsp.chess.chesspiece.PieceColor;
 
 public class PawnTest {
 

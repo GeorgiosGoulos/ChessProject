@@ -1,7 +1,6 @@
 package com.solarwindsmsp.chess;
 
-import com.solarwindsmsp.chess.model.ChessPiece;
-import com.solarwindsmsp.chess.model.PieceColor;
+import com.solarwindsmsp.chess.chesspiece.ChessPiece;
 
 public class ChessBoard {
 
@@ -65,15 +64,15 @@ public class ChessBoard {
     }
     
     private boolean canAddMorePieces(ChessPiece piece) {
-      int number = getNumberOfExistingPieces(piece.getPieceColor());
+      int number = getNumberOfExistingPieces(piece);
       return number < piece.getMaxNumberOfPiecesAllowed();
     }
 
-    private int getNumberOfExistingPieces(PieceColor color) {
+    private int getNumberOfExistingPieces(ChessPiece piece) {
       int numberOfPiecess = 0;
       for (int i = 0; i <= MAX_BOARD_HEIGHT; i++) {
         for (int j = 0; j <= MAX_BOARD_WIDTH; j++) {
-          if (pieces[i][j] != null && color == pieces[i][j].getPieceColor()) {
+          if (pieces[i][j] != null && pieces[i][j].isOfSameType(piece)) {
             numberOfPiecess++;
           }
         }

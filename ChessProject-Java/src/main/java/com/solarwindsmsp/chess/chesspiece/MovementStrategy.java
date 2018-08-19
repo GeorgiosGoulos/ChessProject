@@ -5,8 +5,8 @@ interface MovementStrategy {
     /**
      * Moves the pawn to the new position if that position is available.
      * Otherwise, does nothing.
-     * @param xNewCoordinate
-     * @param yNewCoordinate
+     * @param position the new position to move to
+     * @return TODO
      */
-    void moveToPosition(int xNewCoordinate, int yNewCoordinate);
+    boolean moveToPosition(Position position);
 }

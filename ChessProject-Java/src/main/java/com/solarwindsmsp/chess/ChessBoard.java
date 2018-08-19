@@ -1,6 +1,7 @@
 package com.solarwindsmsp.chess;
 
 import com.solarwindsmsp.chess.chesspiece.ChessPiece;
+import com.solarwindsmsp.chess.chesspiece.Position;
 
 public class ChessBoard {
 
@@ -26,17 +27,31 @@ public class ChessBoard {
     public boolean blackStartsAtNorth() {
         return blackStartsAtNorth;
     }
-
-    public void add(ChessPiece piece, int xCoordinate, int yCoordinate) {
-        if (!(isLegalBoardPosition(xCoordinate, yCoordinate)
-                && positionIsAvailable(xCoordinate, yCoordinate)
+    
+    public void add(ChessPiece piece, Position position) {
+        if (!(isLegalBoardPosition(position)
+                && positionIsAvailable(position)
                 && canAddMorePieces(piece))) {
             placePieceToInvalidPosition(piece);
             return;
         }
-        pieces[xCoordinate][yCoordinate] = piece;
-        piece.setXCoordinate(xCoordinate);
-        piece.setYCoordinate(yCoordinate);
+        pieces[position.getX()][position.getY()] = piece;
+        piece.setPosition(position);
+    }
+
+    /**
+     * @deprecated use {@link com.solarwindsmsp.chess.ChessBoard#add(ChessPiece, Position)} instead
+     * 
+     * Adds the piece to the specified coordinates
+     * 
+     * @param piece the piece to add
+     * @param xCoordinate x coordinate
+     * @param yCoordinate y coordinate
+     */
+    @Deprecated
+    public void add(ChessPiece piece, int xCoordinate, int yCoordinate) {
+        Position position = new Position(xCoordinate, yCoordinate);
+        add(piece, position);
     }
 
     public void remove(ChessPiece piece) {
@@ -52,12 +67,33 @@ public class ChessBoard {
         piece.setYCoordinate(HEIGHT_INVALID_INDEX);
     }
 
-    public boolean positionIsAvailable(int xCoordinate, int yCoordinate) {
-        return pieces[xCoordinate][yCoordinate] == null;
+    public boolean positionIsAvailable(Position position) {
+        return pieces[position.getX()][position.getY()] == null;
     }
 
+    /**
+     * @deprecated use {@link com.solarwindsmsp.chess.ChessBoard#isLegalBoardPosition(Position)} instead
+     * 
+     * Checks whether the provided coordinates corresponse to a valid position on the board
+     * 
+     * @param xCoordinate x coordinate
+     * @param yCoordinate y coordinate
+     * @return <tt>true</tt> if the position exists on the board, otherwise <tt>false</tt>
+     */
+    @Deprecated
     public boolean isLegalBoardPosition(int xCoordinate, int yCoordinate) {
         return isLegalXCoordinate(xCoordinate) && isLegalYCoordinate(yCoordinate);
+    }
+
+    /**
+     * 
+     * Checks whether the provided position exists on the board
+     * 
+     * @param position the position in question
+     * @return <tt>true</tt> if the position exists on the board, otherwise <tt>false</tt>
+     */
+    public boolean isLegalBoardPosition(Position position) {
+        return isLegalXCoordinate(position.getX()) && isLegalYCoordinate(position.getY());
     }
 
     private boolean isLegalXCoordinate(int xCoordinate) {

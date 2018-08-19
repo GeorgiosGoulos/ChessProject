@@ -6,12 +6,12 @@ import com.solarwindsmsp.chess.ChessBoard;
 public abstract class ChessPiece implements MovementStrategy {
 
     protected ChessBoard chessBoard;
-    protected Point point;
+    protected Position position;
     protected PieceColor pieceColor;
 
     public ChessPiece(PieceColor color) {
         this.pieceColor = color;
-        this.point = new Point(0, 0);
+        this.position = new Position(-1, -1);
     }
 
     public ChessBoard getChessBoard() {
@@ -23,27 +23,27 @@ public abstract class ChessPiece implements MovementStrategy {
     }
 
     public int getXCoordinate() {
-        return point.getX();
+        return position.getX();
     }
 
     public void setXCoordinate(int xCoordinate) {
-        this.point.setX(xCoordinate);
+        this.position.setX(xCoordinate);
     }
 
     public int getYCoordinate() {
-        return this.getPoint().getY();
+        return this.getPosition().getY();
     }
 
     public void setYCoordinate(int yCoordinate) {
-        this.point.setY(yCoordinate);
+        this.position.setY(yCoordinate);
     }
 
-    public Point getPoint() {
-        return point;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setPoint(Point point) {
-        this.point = point;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public PieceColor getPieceColor() {
@@ -57,6 +57,16 @@ public abstract class ChessPiece implements MovementStrategy {
      * @return the maximum number of permitted pieces
      */
     public abstract int getMaxNumberOfPiecesAllowed();
+    
+    /*
+     * Wrapper of 
+     */
+    public boolean move(MovementType movementType, int newX, int newY) {
+        Position newPosition = new Position(newX, newY);
+        return move(movementType, newPosition);
+    }
+    
+    public abstract boolean move(MovementType movementType, Position newPosition);
 
     @Override
     public String toString() {
@@ -66,7 +76,7 @@ public abstract class ChessPiece implements MovementStrategy {
     private String currentPositionAsString() {
         String eol = System.lineSeparator();
         return MessageFormat.format("Current X: {1}{0}Current Y: {2}{0}Piece Color: {3}",
-                eol, this.point.getX(), this.point.getY(), pieceColor);
+                eol, this.position.getX(), this.position.getY(), pieceColor);
     }
 
     /**

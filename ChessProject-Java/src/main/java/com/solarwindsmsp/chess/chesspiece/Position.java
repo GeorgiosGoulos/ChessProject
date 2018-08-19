@@ -1,11 +1,15 @@
 package com.solarwindsmsp.chess.chesspiece;
 
-public class Point {
+/**
+ * Indicates a position on the ChessBoard
+ *
+ */
+public class Position {
 
     private int x;
     private int y;
     
-    public Point(int x, int y) {
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }

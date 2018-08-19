@@ -10,10 +10,13 @@ public class Pawn extends ChessPiece {
         super(pieceColor);
     }
 
-    public void move(MovementType movementType, int newX, int newY) {
+    @Override
+    public boolean move(MovementType movementType, Position newPosition) {
         if (movementType == MovementType.MOVE) {
-            moveToPosition(newX, newY);
+            return moveToPosition(newPosition);
         }
+        // Capturing not implemented yet
+        return false;
     }
 
     @Override
@@ -22,16 +25,16 @@ public class Pawn extends ChessPiece {
     }
 
     @Override
-    public void moveToPosition(int xNewCoordinate, int yNewCoordinate) {
-        if (!canMoveToPosition(xNewCoordinate, yNewCoordinate)) {
-            return;
+    public boolean moveToPosition(Position newPosition) {
+        if (!canMoveToPosition(newPosition)) {
+            return false;
         }
         getChessBoard().remove(this);
-        getChessBoard().add(this, xNewCoordinate, yNewCoordinate);
+        getChessBoard().add(this, newPosition);
+        return true;
     }
 
-    private boolean canMoveToPosition(int xNewCoordinate,
-            int yNewCoordinate) {
+    private boolean canMoveToPosition(Position newPosition) {
         if (getChessBoard() == null) {
             return false;
         }
@@ -41,26 +44,26 @@ public class Pawn extends ChessPiece {
             return false;
         }
         // Validate new position
-        if (!chessBoard.isLegalBoardPosition(xNewCoordinate, yNewCoordinate)) {
+        if (!chessBoard.isLegalBoardPosition(newPosition)) {
             return false;
         }
         // Validate position is available
-        if (!chessBoard.positionIsAvailable(xNewCoordinate, yNewCoordinate)) {
+        if (!chessBoard.positionIsAvailable(newPosition)) {
             return false;
         }
         if (chessBoard.blackStartsAtNorth()) {
-            return canMoveSouthToPosition(getXCoordinate(), getYCoordinate(), xNewCoordinate, yNewCoordinate);
+            return canMoveSouthToPosition(getPosition(), newPosition);
         }
-        return canMoveNorthToPosition(getXCoordinate(), getYCoordinate(), xNewCoordinate, yNewCoordinate);
+        return canMoveNorthToPosition(getPosition(), newPosition);
     }
 
-    private boolean canMoveSouthToPosition(int xCoordinate, int yCoordinate, int xNewCoordinate,
-            int yNewCoordinate) {
-        return (xCoordinate == xNewCoordinate) && (yCoordinate - yNewCoordinate == 1);
+    private boolean canMoveSouthToPosition(Position currentPosition, Position newPosition) {
+        return (currentPosition.getX() == newPosition.getX()) 
+                && (currentPosition.getY() - newPosition.getY() == 1);
     }
     
-    private boolean canMoveNorthToPosition(int xCoordinate, int yCoordinate, int xNewCoordinate,
-            int yNewCoordinate) {
-        return (xCoordinate == xNewCoordinate) && (yCoordinate - yNewCoordinate == -1);
+    private boolean canMoveNorthToPosition(Position currentPosition, Position newPosition) {
+        return (currentPosition.getX() == newPosition.getX()) 
+                && (currentPosition.getY() - newPosition.getY() == -1);
     }
 }

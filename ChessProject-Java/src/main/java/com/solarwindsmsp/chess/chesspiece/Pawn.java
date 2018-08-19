@@ -18,10 +18,14 @@ public class Pawn extends ChessPiece {
     @Override
     public boolean canMoveToPosition(MovementDetails details) {
         
+        if (details == null) {
+            throw new IllegalArgumentException("details is null");
+        }
+        
         // TODO: To be used when support for capture is added
         MovementType movementType = details.getMovementType();
         if (movementType == MovementType.CAPTURE) {
-            return false;
+            throw new UnsupportedOperationException("Does not support CAPTURE yet");
         }
         
         boolean blackStartsAtNorth = details.getBlackStartsAtNorth();

@@ -63,6 +63,7 @@ public class MovementDetails {
             Objects.requireNonNull(currentPosition);
             Objects.requireNonNull(newPosition);
             Objects.requireNonNull(movementType);
+            Objects.requireNonNull(blackStartsAtNorth);
             return new MovementDetails(movementType, currentPosition, newPosition, blackStartsAtNorth);
         }
 

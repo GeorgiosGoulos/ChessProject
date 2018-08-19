@@ -6,34 +6,39 @@ public class ChessBoard {
 
     public static final int MAX_BOARD_WIDTH = 7;
     public static final int MAX_BOARD_HEIGHT = 7;
-    
+
     public static final int WIDTH_INVALID_INDEX = -1;
     public static final int HEIGHT_INVALID_INDEX = -1;
 
     private ChessPiece[][] pieces;
-    
-    private boolean blackStartsAtNorth = true;
+
+    private boolean blackStartsAtNorth;
 
     public ChessBoard() {
-        pieces = new ChessPiece[MAX_BOARD_WIDTH + 1][MAX_BOARD_HEIGHT + 1];
+        this(true);
     }
-    
+
+    public ChessBoard(boolean blackStartsAtNorth) {
+        pieces = new ChessPiece[MAX_BOARD_WIDTH + 1][MAX_BOARD_HEIGHT + 1];
+        this.blackStartsAtNorth = blackStartsAtNorth;
+    }
+
     public boolean blackStartsAtNorth() {
         return blackStartsAtNorth;
     }
 
     public void add(ChessPiece piece, int xCoordinate, int yCoordinate) {
-        if (!(isLegalBoardPosition(xCoordinate, yCoordinate) 
-            && positionIsAvailable(xCoordinate, yCoordinate) 
-            && canAddMorePieces(piece))) {
-          placePieceToInvalidPosition(piece);
-          return;
+        if (!(isLegalBoardPosition(xCoordinate, yCoordinate)
+                && positionIsAvailable(xCoordinate, yCoordinate)
+                && canAddMorePieces(piece))) {
+            placePieceToInvalidPosition(piece);
+            return;
         }
         pieces[xCoordinate][yCoordinate] = piece;
         piece.setXCoordinate(xCoordinate);
         piece.setYCoordinate(yCoordinate);
     }
-    
+
     public void remove(ChessPiece piece) {
         int xCoordinate = piece.getXCoordinate();
         int yCoordinate = piece.getYCoordinate();
@@ -62,21 +67,21 @@ public class ChessBoard {
     private boolean isLegalYCoordinate(int yCoordinate) {
         return yCoordinate >= 0 && yCoordinate <= MAX_BOARD_HEIGHT;
     }
-    
+
     private boolean canAddMorePieces(ChessPiece piece) {
-      int number = getNumberOfExistingPieces(piece);
-      return number < piece.getMaxNumberOfPiecesAllowed();
+        int number = getNumberOfExistingPieces(piece);
+        return number < piece.getMaxNumberOfPiecesAllowed();
     }
 
     private int getNumberOfExistingPieces(ChessPiece piece) {
-      int numberOfPiecess = 0;
-      for (int i = 0; i <= MAX_BOARD_HEIGHT; i++) {
-        for (int j = 0; j <= MAX_BOARD_WIDTH; j++) {
-          if (pieces[i][j] != null && pieces[i][j].isOfSameType(piece)) {
-            numberOfPiecess++;
-          }
+        int numberOfPiecess = 0;
+        for (int i = 0; i <= MAX_BOARD_HEIGHT; i++) {
+            for (int j = 0; j <= MAX_BOARD_WIDTH; j++) {
+                if (pieces[i][j] != null && pieces[i][j].isOfSameType(piece)) {
+                    numberOfPiecess++;
+                }
+            }
         }
-      }
-      return numberOfPiecess;
+        return numberOfPiecess;
     }
 }

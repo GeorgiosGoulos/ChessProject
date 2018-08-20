@@ -46,6 +46,4 @@ public interface ChessBoardActions {
      */
     public boolean move(ChessPiece piece, MovementType movementType, Position newPosition);
     
-    public boolean positionIsAvailable(Position position);
-
 }

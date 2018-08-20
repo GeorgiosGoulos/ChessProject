@@ -32,7 +32,9 @@ public class ChessBoard implements ChessBoardActions {
     
     @Override
     public boolean isLegalBoardPosition(Position position) {
-        return isLegalXCoordinate(position.getX()) && isLegalYCoordinate(position.getY());
+        return position != null
+                && isLegalXCoordinate(position.getX())
+                && isLegalYCoordinate(position.getY());
     }
 
     @Override
@@ -49,7 +51,8 @@ public class ChessBoard implements ChessBoardActions {
 
     @Override
     public boolean add(ChessPiece piece, Position position) {
-        if (isLegalBoardPosition(position) 
+        if (piece != null
+                && isLegalBoardPosition(position) 
                 && positionIsAvailable(position)
                 && !pieceIsOnTheBoard(piece)
                 && canAddMorePieces(piece)) {
@@ -76,12 +79,15 @@ public class ChessBoard implements ChessBoardActions {
                 && piece.canMoveToPosition(movementDetails)) {
             removeFromPosition(currentPosition);
             addOrReplace(piece, newPosition);
+            return true;
         }
         return false;
     }
 
-    @Override
-    public boolean positionIsAvailable(Position position) {
+    private boolean positionIsAvailable(Position position) {
+        if (!isLegalBoardPosition(position)) {
+            return false;
+        }
         return pieces[position.getX()][position.getY()] == null;
     }
 
@@ -140,6 +146,6 @@ public class ChessBoard implements ChessBoardActions {
     }
 
     private boolean pieceIsOnTheBoard(ChessPiece piece) {
-        return getPosition(piece).equals(new Position(INVALID_WIDTH_POSITION, INVALID_HEIGHT_POSITION));
+        return !getPosition(piece).equals(new Position(INVALID_WIDTH_POSITION, INVALID_HEIGHT_POSITION));
     }
 }
